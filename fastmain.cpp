@@ -23,6 +23,11 @@ Leaf *Support; //??? ?????? ??????? ???? ??? ??????
 Leaf *Last;	   // Support ??????? ?? ??? ?????(??? ??? ??????? ????)
 
 unordered_map<string, int> database;
+
+unordered_map<string, int> database1;
+unordered_map<string, int> database2;
+unordered_map<string, int> database3;
+
 unordered_map<uint64_t, int> intDataBase;
 
 int SS[4][4] = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 0}}; //??? ????
@@ -60,7 +65,7 @@ queue<pair<array<int, 2>, string>> sque3;
 // (-3)이 제한되며, + 4 가 s.length 보다 크거나 같은경우 아래로의 이동(+3)이 제한
 
 // �񵿱� ó���� �� �Լ��� ���ÿ� ������ �� ����� ������ �����ϱ� ���� ���ɾ�
-std::mutex mtx;
+// std::mutex mtx;
 
 // void queInitializer() {
 // 	for (int i = 0; i < 4; i++) {
@@ -626,11 +631,11 @@ void sque1BFS()
 		// cout << cur.second << endl;
 		sque1.pop();
 
-		std::unique_lock<std::mutex> lock(mtx);
-		if (database.find(cur.second) == database.end())
+		// std::unique_lock<std::mutex> lock(mtx);
+		if (database1.find(cur.second) == database1.end())
 		{
-			database.insert({cur.second, cur.first[1]});
-			lock.unlock();
+			database1.insert({cur.second, cur.first[1]});
+			// lock.unlock();
 
 			// 오른쪽
 			if (cur.first[0] % 4 != 3)
@@ -687,11 +692,11 @@ void sque2BFS()
 		pair<array<int, 2>, string> cur = sque2.front();
 		sque2.pop();
 
-		std::unique_lock<std::mutex> lock(mtx);
-		if (database.find(cur.second) == database.end() || cur.first[1] < 10)
+		// std::unique_lock<std::mutex> lock(mtx);
+		if (database2.find(cur.second) == database2.end() || cur.first[1] < 10)
 		{
-			database.insert({cur.second, cur.first[1]});
-			lock.unlock();
+			database2.insert({cur.second, cur.first[1]});
+			// lock.unlock();
 
 			// 오른쪽
 			if (cur.first[0] % 4 != 3)
@@ -748,11 +753,11 @@ void sque3BFS()
 		pair<array<int, 2>, string> cur = sque3.front();
 		sque3.pop();
 
-		std::unique_lock<std::mutex> lock(mtx);
-		if (database.find(cur.second) == database.end() || cur.first[1] < 0)
+		// std::unique_lock<std::mutex> lock(mtx);
+		if (database3.find(cur.second) == database3.end() || cur.first[1] < 0)
 		{
-			database.insert({cur.second, cur.first[1]});
-			lock.unlock();
+			database3.insert({cur.second, cur.first[1]});
+			// lock.unlock();
 
 			// 오른쪽
 			if (cur.first[0] % 4 != 3)
@@ -1182,7 +1187,7 @@ float CalcFnValue(Node *node)
 	array<string, 3> result = parseToStringforOriginArray(node);
 	// array<uint64_t, 3> result = convertOriginTo64bitInt(node);
 	// cout << database.at(result[0]) << ", " << database.at(result[1]) << ", " << database.at(result[2]) << "\n";
-	fnvalue = (float)(database[result[0]] + database[result[1]] + database[result[2]] + node->depth);
+	fnvalue = (float)(database1[result[0]] + database2[result[1]] + database3[result[2]] + node->depth);
 	// fnvalue = (float)(intDataBase[result[0]] + intDataBase[result[1]] + intDataBase[result[2]] + node->depth);
 	// �� �Լ��� �پ��� ���� ��
 	// fnvalue = (float)(node->depth + count); // f(n) = e(n) + h(n)  ->  A* �˰�����

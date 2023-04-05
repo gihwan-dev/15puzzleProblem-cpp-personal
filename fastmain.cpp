@@ -1924,7 +1924,7 @@ int main()
 	thread3.join();
 
 	auto end_time = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
 	std::cout << "Elapsed time: " << duration << " seconds" << std::endl;
 	// future<void> result1 = std::async(launch::async, que1BFS);
 	// future<void> result2 = std::async(launch::async, que2BFS);
